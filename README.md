@@ -1,2 +1,2 @@
-# JavaSe
-JavaSe学习代码及Markdown
+# JavaSE
+JavaSE学习代码及Markdown
