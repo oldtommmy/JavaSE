@@ -1,0 +1,17 @@
+8，扩展如下的BankAccount类
+class BankAccount private int balance ://余额
+public BankAccount(double initialBalance)
+{ this.balance = initialBalance;
+要求：
+（1）在上面类的基础上扩展新类CheckingAccount对每次存款和取款都收取1美元的手续费
+} //存款
+public void deposit(double amount) f balance += amount;
+} //取款
+public withdraw(double amount) { oalance -= amount
+（2）扩展前一个练习的BankAccount类，新类SavingsAccount每个月都有利息产生
+earnMonthlyInterest方法被调用），并且有每月三次免手续费的存款或取款。在earnMonthlylnterest方法中重置交易计数
+3）体会重写的好处
+//set和getBalance方法..
+Homework08.java
+
+
