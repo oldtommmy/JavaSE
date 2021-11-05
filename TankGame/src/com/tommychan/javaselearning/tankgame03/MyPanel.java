@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -23,26 +24,53 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
     //当子弹击中tank 则加入一个Bomb对象到Vector
     Vector<Bomb> bombs = new Vector<>();
 
+    //用于接收上一次游戏的数据
+    Vector<Node> nodes = new Vector<>();
+
     //用于显示爆炸效果
     Image image1 = null;
     Image image2 = null;
     Image image3 = null;
 
-    public MyPanel() {
-        player = new Player(650,800,0,5); //初始化Player
+    public MyPanel(String key) throws IOException {
 
-        int EnemySize = 3;
-        for (int i = 0; i < EnemySize; i++) {
-            //创建敌人tank
-            Enemy enemy = new Enemy(200+200*i,100,2,1);
-            //启动enemy线程 实现自由移动
-            new Thread(enemy).start();
-            //给tank加入一颗子弹
-            Shot shot = new Shot(enemy.getX()+20, enemy.getY()+60,enemy.getDirect());
-            enemy.getShots().add(shot);
-            //启动子弹线程
-            new Thread(shot).start();
-            enemies.add(enemy);
+        player = new Player(650,800,0,5); //初始化Player
+        nodes = Recorder.getNodesAndEnemies();
+        Recorder.setEnemies(enemies);
+        int EnemySize = 6;
+
+        switch (key){
+            case "C":
+                for (int i = 0; i < nodes.size(); i++) {
+                    Node node = nodes.get(i);
+                    //创建敌人tank
+                    Enemy enemy = new Enemy(node.getX(),node.getY(),node.getDirect(),1);
+                    //启动enemy线程 实现自由移动
+                    new Thread(enemy).start();
+                    //给tank加入一颗子弹
+                    Shot shot = new Shot(enemy.getX()+20, enemy.getY()+60,enemy.getDirect());
+                    enemy.getShots().add(shot);
+                    //启动子弹线程
+                    new Thread(shot).start();
+                    enemies.add(enemy);
+                }
+                break;
+            case "S":
+                for (int i = 0; i < EnemySize; i++) {
+                    //创建敌人tank
+                    Enemy enemy = new Enemy(100+100*i,100,2,1);
+                    //启动enemy线程 实现自由移动
+                    new Thread(enemy).start();
+                    //给tank加入一颗子弹
+                    Shot shot = new Shot(enemy.getX()+20, enemy.getY()+60,enemy.getDirect());
+                    enemy.getShots().add(shot);
+                    //启动子弹线程
+                    new Thread(shot).start();
+                    enemies.add(enemy);
+                }
+                break;
+            default:
+                System.out.println("输入有误");
         }
 
         //初始化爆炸图片
@@ -50,6 +78,8 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
         image2 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_2.gif"));
         image3 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_3.gif"));
 
+        AePlayWave aePlayWave = new AePlayWave("src\\111.wav");
+        aePlayWave.start();
     }
 
     //创建画板 绘制游戏界面
@@ -57,6 +87,9 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
     public void paint(Graphics g) {
         super.paint(g);
         g.fillRect(0,0,1400,1000); //填充背景
+        g.setColor(Color.darkGray);
+        g.fillRect(1400,0,600,1000);
+        showInfo(g);//显示得分
         if (player.getLife()>0){
             drawTank(player.getX(),player.getY(),g,player.getDirect(),0);
         }
@@ -110,6 +143,18 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
                 }
             }
         }
+    }
+
+
+    public void showInfo(Graphics g){
+        g.setColor(Color.white);
+        g.setFont(new Font("微软雅黑",Font.BOLD,25));
+
+        g.drawString("You have killed             enemies",1520,200);
+        drawTank(1460,150,g,0,1);
+        g.setColor(Color.PINK);
+        g.setFont(new Font("微软雅黑",Font.BOLD,30));
+        g.drawString(String.valueOf(Recorder.getNum()),1750,200);
     }
 
     /**
@@ -176,6 +221,7 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
                     enemy.setLive(false);
                     Bomb bomb = new Bomb(enemy.getX(), enemy.getY());
                     bombs.add(bomb);
+                    Recorder.setNum((Recorder.getNum())+1);
                 }
                 break;
             case 1://向左和向右
@@ -186,6 +232,7 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
                     enemy.setLive(false);
                     Bomb bomb = new Bomb(enemy.getX(), enemy.getY());
                     bombs.add(bomb);
+                    Recorder.setNum((Recorder.getNum())+1);
                 }
                 break;
         }
@@ -280,11 +327,13 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{ //通过�
             }
 
             //对每个enemy的子弹进行判断是否击中player
-            for (int i = 0; i < enemies.size(); i++) {
-                Enemy enemy = enemies.get(i);
-                for (int j = 0; j < enemy.getShots().size(); j++) {
-                    if (enemy.getShots().get(j).isLive()){
-                        isPlayerHit(enemy.getShots().get(j),player);
+            if (player.getLife()>0) {
+                for (int i = 0; i < enemies.size(); i++) {
+                    Enemy enemy = enemies.get(i);
+                    for (int j = 0; j < enemy.getShots().size(); j++) {
+                        if (enemy.getShots().get(j).isLive()){
+                            isPlayerHit(enemy.getShots().get(j),player);
+                        }
                     }
                 }
             }
