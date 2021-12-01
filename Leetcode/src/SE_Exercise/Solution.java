@@ -1,24 +1,27 @@
 package SE_Exercise;
 
-class Solution {
-    public int firstUniqChar(String s) {
+public class Solution {
+    public static void main(String[] args) {
 
-        int i,j;
-        int[] isRepeated = new int[26];
-        if (s.length()==1) return 0;
-        for (i = 0; i < s.length()-1; i++) {
-            int flag = 1;
-            if (isRepeated[s.charAt(i)-'a']==1) continue;
-            for (j = i+1; j < s.length(); j++) { //"aabb"
-                if (s.charAt(j)==s.charAt(i)){
-                    isRepeated[s.charAt(j)-'a'] = 1;
-                    flag = 0;
-                    break;
-                }
+        long n = 600851475143L;
+        long i = 2;
+        long result = 0;
+
+        while (i<n) {
+            if (isPrime(i)&&n%i==0) {
+                result = i;
             }
-            if (flag == 1) return i;
+            i++;
         }
-        if (isRepeated[s.charAt(i)-'a']!=1) return i;
-        return -1;
+        System.out.println(result);
+    }
+
+    static boolean isPrime(long num) {
+        for (int i = 2; i <= Math.sqrt(num); i++){
+            if (num%i==0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

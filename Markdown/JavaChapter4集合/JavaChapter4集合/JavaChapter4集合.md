@@ -73,39 +73,38 @@ public class CollectionMethod {
     public static void main(String[] args) {
 
         List list = new ArrayList();
-       ** 
-        //add：添加单个元素** 
+        
+        //add：添加单个元素 
         list.add(18);
         list.add(29);
         System.out.println(list);
 
-        **//remove(index)：删除index处的元素** 
+        //remove(index)：删除index处的元素 
         list.remove(0);
         System.out.println(list);
-
-        **//contains：查找元素是否存在** 
+        
+        //contains：查找元素是否存在
         System.out.println(list.contains(9));
 
-        **//size：获取元素个数** 
+        //size：获取元素个数
         System.out.println(list.size());
 
-        **//isEmpty：判断是否为空** 
+        //isEmpty：判断是否为空 
         System.out.println(list.isEmpty());
 
-        **//clear：清空** 
+        //clear：清空
         list.clear();
-**
-        //addALL：添加多个元素** 
+        //addALL：添加多个元素
         List list1 = new ArrayList();
         list1.add("tommy");
         list1.add("eric");
         list.addAll(list1);
         System.out.println(list);
 
-        **//containsALL：查找多个元素是否都存在** 
+        //containsALL：查找多个元素是否都存在 
         System.out.println(list.containsAll(list1));
 
-        **//removeALL：删除多个元素** 
+        //removeALL：删除多个元素
         list.removeAll(list1);
     }
 }
@@ -140,11 +139,10 @@ System.out.printin(iterator.next();
 
 ```
 
+**提示：** 在调用`iterator.next()`方法之前必须要调用`iterator.hasNext()`进行检测。若不调用，且下一条记录无效，直接调用`iterator.next()`会抛出`NoSuchElementException`异常。
 
-**提示：** 在调用`iterator.next()`方法之前必须要调用`iterator.hasNext()`进行检测。若不调用，且下一条记录无效，直接调用`iterator.next()`会抛出NoSuchElementException异常。
 
-
-具体实现：<br /><br />
+具体实现
 
 ```Java
 package com.tommychan.javaselearning.collection_;
@@ -408,7 +406,9 @@ for (int i = 0; i < list.size(); i++) {
 
 - ArrayList基本等同于Vector，除了ArrayList是线程不安全的
 
-&ensp;&ensp;&ensp;&ensp;> *对于一个经验丰富的Java程序员来说，在需要动态数组时，可能会使用Vector类。为什么要用ArrayList而不是Vector呢？原因很简单:Vector类的所有方法都是同步的。可以安全地从两个线程访问一个Vector对象。但是，* *如果只从一个线程访问Vector（这种情况更为常见），代码就会在同步操作上白白浪费大量的时间。而与之不同，ArrayList方法不是同步的，因此，建议在不需要同步时使用ArrayList，而不要使用 Vector* *  *                                             —《Java核心卷I》P384
+> 对于一个经验丰富的 Java程序员来说，在需要动态数组时，可能会使用Vector类。为什么要用ArrayList而不是Vector呢？原因很简单:Vector类的所有方法都是同步的。可以安全地从两个线程访问一个Vector对象。但是，如果只从一个线程访问Vector（这种情况更为常见），代码就会在同步操作上白白浪费大量的时间。而与之不同，ArrayList方法不是同步的，因此，建议在不需要同步时使用ArrayList，而不要使用 Vector                                        
+>
+> ​                                                                                                                                                                                                                               —《Java核心卷I》P384
 
 
 
@@ -416,29 +416,29 @@ for (int i = 0; i < list.size(); i++) {
 
 ①操作机制
 
-- ArrayList中维护了一个Object类型的数组`elementData`.  `transient Object[] elementData;`
+- `ArrayList`中维护了一个`Object`类型的数组`elementData`.  `transient Object[] elementData;`
 
-- 当创建ArrayList对象时，如果使用的是无参构造器，则初始elementData容量为0，第1次添加，则扩容elementData为10，如需要再次扩容，则扩容elementData为1.5倍。
+- 当创建`ArrayList`对象时，如果使用的是无参构造器，则初始`elementData`容量为0，第1次添加，则扩容`elementData`为10，如需要再次扩容，则扩容`elementData`为1.5倍。
 
-- 如果使用的是指定大小的构造器，则初始elementData容量为指定大小，如果需要扩容，则直接扩容elementData为1.5倍。
+- 如果使用的是指定大小的构造器，则初始`elementData`容量为指定大小，如果需要扩容，则直接扩容`elementData`为1.5倍。
 
 
 ②源码分析：
 
-ArrayLIst 无参构造器： 完成创建一个空的Object类型的数组`elementData`
+`ArrayLIst` 无参构造器： 完成创建一个空的Object类型的数组`elementData`
 
 ![](image/image_3.png)
 
 
 
-ArrayList有参构造器：
+`ArrayList`有参构造器：
 
 ![](image/image_4.png)
 
 ![](image/image_5.png)
 
 
-- add方法：  执行添加的方法
+- `add`方法：  执行添加的方法
 
 ![](image/image_6.png)
 
@@ -1516,23 +1516,23 @@ public class TreeMap_ {
                               增删多：LinkedList［底层维护了一个双向链表］
 
                                    改查多：ArrayList［底层维护Object类型的可变数组］ 
-
+                 
                      不允许重复：Set
                                    无序：HashSet ［底层是HashMap，维护了一个哈希表 即（数组＋链表＋红黑树）］
-
+                 
                                    排序：TreeSet
-
+                 
                                    插入和取出顺序一致：LinkedHashSet，维护数组＋双向链表
 
 3. 一组键值对：Map                
 
           键无序：HashMap［底层是：哈希表 jdk7：数组＋链表，jdk8：数组＋链表＋红黑树］
-
+          
           键排序：TreeMap
 
 
           键插入和取出顺序一致：LinkedHashMap 
-
+    
           读取文件 Properties
 
 

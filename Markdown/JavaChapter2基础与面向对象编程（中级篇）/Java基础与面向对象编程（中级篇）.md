@@ -60,7 +60,7 @@ package com.tommy    package是关键字（打包） com.tommy是包名
 
 包的本质：创建不同文件夹，来保存类文件。
 
-![](image/image.png)
+![](https://gitee.com/tommychanchan/markdown-pics/raw/master/img/image.png)
 
 ## （2）具体使用
 
@@ -89,13 +89,13 @@ public class Test{
 
 ## （4）常用的包
 
-java.lang : lang包是基本包，默认引入了
+`java.lang` : lang包是基本包，默认引入了
 
-java.util :  util包，系统提供的工具包，含有如Scanner类
+`java.util` :  util包，系统提供的工具包，含有如Scanner类
 
-[java.net](http://java.net) :  网络包，负责网络开发
+`java.net` :  网络包，负责网络开发
 
-java.awt : 做Java的界面开发，GUI
+`java.awt` : 做Java的界面开发，GUI
 
 ## （5）包的使用细节
 
@@ -196,7 +196,7 @@ public void getXXX(){ return xx; }
 
 ## （1）关系图解
 
-![](image/image_1.png)
+![](https://gitee.com/tommychanchan/markdown-pics/raw/master/img/image_1.png)
 
 1）子类会自动拥有父类定义的属性和方法
 
@@ -217,17 +217,17 @@ class 子类 extends 父类{
 
 1）子类继承了所有的属性和方法，但是私有属性和方法不能在子类直接访问，可通过父类提供的公共的方法访问
 
-2）子类必须调用父类的构造器，完成父类的初始化 super（) ; 这句代码来调用父类的无参构造器，通常系统会自己生成
+2）子类必须调用父类的构造器，完成父类的初始化 `super`（) ; 这句代码来调用父类的无参构造器，通常系统会自己生成
 
 3）当创建子类对象时，不管使用子类的哪个构造器，默认情况下总会去调用父类的无参构造器
 
-4）如果父类没有提供无参构造器，则必须在子类的构造器中用 super（参数列表) ; 去指定使用父类的哪个构造器完成对父类的初始化工作，否则编译不会通过
+4）如果父类没有提供无参构造器，则必须在子类的构造器中用 `super`（参数列表) ; 去指定使用父类的哪个构造器完成对父类的初始化工作，否则编译不会通过
 
-5）如果希望指定去调用父类的某个构造器，则显式的调用一下：super（参数列表) ;
+5）如果希望指定去调用父类的某个构造器，则显式的调用一下：`super`（参数列表) ;
 
-6）super（参数列表) ;  在使用时，**必须放在构造器第一行** 
+6）`super`（参数列表) ;  在使用时，**必须放在构造器第一行** 
 
-7）super（参数列表) ;  和 this() ; （this（）用于访问本类的构造方法）都只能放在构造器第一行，**因此这两个方法不能共存在一个构造器** 
+7）`super`(参数列表)  和 `this() ` `this()`用于访问本类的构造方法都只能放在构造器第一行，**因此这两个方法不能共存在一个构造器** 
 
 8）object类是所有类的基类
 
@@ -235,13 +235,13 @@ class 子类 extends 父类{
 
 10）不能滥用继承，子类父类需要满足is-a的逻辑关系
 
-- Music extends Person 错误
+- `Music extends Person` 错误
 
-- Cat extends Animal 正确
+- `Cat extends Animal `正确
 
 ## （4）继承的本质
 
-![](image/%E6%88%AA%E5%9B%BE.png)
+![](https://gitee.com/tommychanchan/markdown-pics/raw/master/img/%E6%88%AA%E5%9B%BE.png)
 
  
 
@@ -301,7 +301,7 @@ super(参数);       //**访问父类有参构造器**
 ```Java
 class A{
     //...
-    **publi** c void test(){
+    public void test(){
     //...
     }
     
@@ -309,16 +309,16 @@ class A{
 
 class B extends A{
     //...
-    test();//按照**查找规则** 进行查找
-    this.test();//**与上述一致 ** 
-    super.test();//**直接查找父类  即  this 是针对本类  super 是针对父类** 
+    test();//按照查找规则 进行查找
+    this.test();//与上述一致
+    super.test();//直接查找父类  即  this 是针对本类  super 是针对父类
 }
 ```
 
 
 ## （3）super与this
 
-![](image/image_2.png)
+![](https://gitee.com/tommychanchan/markdown-pics/raw/master/img/image_2.png)
 
 
 ## （4）instanceof
@@ -339,7 +339,7 @@ class B extends A{
 - **子类方法的返回类型和父类方法返回类型一样，** **或者是父类返回类型的子类** 
 
 ```Java
-public Object getInfo(){ } //比如 父类 返回类型是Object，
+public Object getInfo(){ } //比如 父类 返回类型是Object
 public String getInfo(){ } //    子类方法返回类型是String
 ```
 
@@ -348,7 +348,7 @@ public String getInfo(){ } //    子类方法返回类型是String
 
 ```Java
 public void Show() {...}; //父类
-void Show() {...}; //子类              **此时缩小了访问权限，故不可构成重写** 
+void Show() {...}; //子类      此时缩小了访问权限，故不可构成重写
 ```
 
 
@@ -446,7 +446,7 @@ System.out.println("n="+base.n);  输出的是 n=10;
 
 
 
-instanceof：
+`instanceof`：
 
 比较操作符，用于判断对象的**运行类型**  是否是XX类型 或 XX类型的子类型
 
@@ -743,11 +743,15 @@ public boolean equals(Object obj) {
 ## （2）重写equals方法
 
 应用实例：判断两个Person对象的内容是否相等，如果两个Person对象的各个属性值都一样,则返回true,反之false
+
+```java
 class Person{
-
-private String name; private int age; private char gender; 
-
+	private String name; 
+    private int age; 
+    private char gender; 
 }
+```
+
 代码测试详细见：Project ChapterMiddle.src......equalsRewrite
 
 ```Java
@@ -824,16 +828,16 @@ public class test {
     public static void main(String[] args) {
         Worker worker = new Worker("Jack","Cleaner");
         System.out.println(worker.toString());
-        System.out.println(worker);** ** 
-        **//当直接输出一个对象时， toString方法会被默认的调用** **
-    }** 
+        System.out.println(worker); 
+        //当直接输出一个对象时， toString方法会被默认的调用
+    } 
 }
 
 class Worker{
     private String name;
     private String job;
 
-    @Override **//alt+insert 默认重写生成的toString（），一般是把对象的属性值输出 也可自己定制** 
+    @Override //alt+insert 默认重写生成的toString（），一般是把对象的属性值输出 也可自己定制 
     public String toString() {
         return "Worker{" +
                 "name='" + name + '\'' +
@@ -893,7 +897,7 @@ shift＋F8（跳出）：跳出方法
 F9（resume，执行到下一个断点）
 
 
-![](image/image_3.png)
+![](https://gitee.com/tommychanchan/markdown-pics/raw/master/img/image_3.png)
 
 
 Debug追JDK码：
@@ -909,10 +913,4 @@ Debug跳出JDK码：
 Debug跳入下一个断点处：
 
 - Resume Program F9
-
-# 11.房屋出租系统
-
-## （1）程序框架图
-
-![](image/image_4.png)
 
